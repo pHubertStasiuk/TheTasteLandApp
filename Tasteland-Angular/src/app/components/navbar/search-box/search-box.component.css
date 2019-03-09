@@ -1,0 +1,35 @@
+
+.search-box {
+  width:40%;
+  margin-top: 0.5em;
+position: relative;
+  z-index: 1;
+  display: inline-block;
+  border:2.5px solid rgb(197, 197, 197);
+}
+.search-box input[type="text"] {
+  outline: none;
+  background: #fff;
+  width: 89%;
+  margin: 0;
+  z-index: 10;
+  font-size: 0.8em;
+  color: #7A7B78;
+  padding: 0.5em 0.5em;
+  border: none;
+  -webkit-appearance: none;
+  display: inline-block;
+}
+.search-box input[type="submit"] {
+ background: url("/assets/img/search.png") no-repeat;
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+ vertical-align: text-bottom;
+  border: none;
+  outline: none;
+}
+::-webkit-input-placeholder{
+ color:#7A7B78 !important;
+}
+
