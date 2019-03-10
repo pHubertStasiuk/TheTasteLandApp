@@ -1,20 +1,5 @@
+<!--
 
-<nav class="navbar navbar-default my-nav-bar" role="navigation">
-    <a class="navbar-brand" href="#">Logotipo</a>
-
-      <div class="pull-right my-menu">
-          <button href="#" class="dropdown-toggle btn btn btn-primary" data-toggle="collapse" data-target="#collapse-menu"> <!--add the atributes data-toggle="collapse" data-target="#collapse-menu" to the element that you want to be the collapser-->
-                Dropdown Menu <b class="caret"></b>
-          </button>
-
-          <ul id="collapse-menu" class="list-group collapse">  <!--add the class "collapse" to the element that you want collapse-->
-              <li class="list-group-item"><a href="#">Acción #1</a></li>
-              <li class="list-group-item"><a href="#">Acción #2</a></li>
-          </ul>
-      </div>
-</nav>
-<!-- <div class=""> -->
-  <!-- <div>
 <ul>
     <li class="dropdown head-dpdn">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown"
@@ -33,15 +18,15 @@
               <div class="clearfix"></div>
            </a></li>
         </ul>
-    </li> -->
-    <!-- <li class="dropdown head-dpdn">
-        <mat-icon matBadgeHidden=false matBadge="0" matBadgeSize='medium' matBadgeColor="primary">message</mat-icon>
+    </li>
+    </ul> -->
+     <!-- <li class="dropdown head-dpdn"> -->
+        <!-- <mat-icon matBadgeHidden=false matBadge="0" matBadgeSize='medium' matBadgeColor="primary">message</mat-icon>
     </li>
     <li class="dropdown head-dpdn">
         <mat-icon matBadgeHidden=false matBadge="0" matBadgeSize='medium' matBadgeColor="primary">message</mat-icon>
     </li> -->
-
-<!-- <a><span>
+ <!-- <a><span>
     <mat-icon matBadgeHidden=false matBadge="0" matBadgeSize='medium' matBadgeColor="primary">message</mat-icon>
   </span></a>
 <span>
@@ -50,8 +35,8 @@
 <span>
   <mat-icon matBadge="15" matBadgeColor="link">message</mat-icon>
 </span> -->
-
-<!-- <ul>
+<!--
+<ul>
     <li class="dropdown head-dpdn">
       <a href="#" class="dropdown-toggle" data-toggle="dropdown"
       aria-expanded="false"><mat-icon matBadge="15" matBadgeColor="link">message</mat-icon></a>
@@ -184,5 +169,163 @@
     </li>
   </ul>
   <div class="clearfix"> </div>
+  <div class="header-right">
+      <div class="profile_details_left">
+        <ul class="nofitications-dropdown">
+          <li class="dropdown head-dpdn">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-envelope"></i><span class="badge">3</span></a>
+            <ul class="dropdown-menu">
+              <li>
+                <div class="notification_header">
+                  <h3>You have 3 new messages</h3>
+                </div>
+              </li>
+              <li><a href="#">
+                 <div class="user_img"><img src="${pageContext.request.contextPath}/resources/static/img/p4.png" alt=""></div>
+                 <div class="notification_desc">
+                <p>Lorem ipsum dolor</p>
+                <p><span>1 hour ago</span></p>
+                </div>
+                 <div class="clearfix"></div>
+              </a></li>
+              <li class="odd"><a href="#">
+                <div class="user_img"><img src="${pageContext.request.contextPath}/resources/static/img/p2.png" alt=""></div>
+                 <div class="notification_desc">
+                <p>Lorem ipsum dolor </p>
+                <p><span>1 hour ago</span></p>
+                </div>
+                <div class="clearfix"></div>
+              </a></li>
+              <li><a href="#">
+                 <div class="user_img"><img src="${pageContext.request.contextPath}/resources/static/img/p3.png" alt=""></div>
+                 <div class="notification_desc">
+                <p>Lorem ipsum dolor</p>
+                <p><span>1 hour ago</span></p>
+                </div>
+                 <div class="clearfix"></div>
+              </a></li>
+              <li>
+                <div class="notification_bottom">
+                  <a href="#">See all messages</a>
+                </div>
+              </li>
+            </ul>
+          </li>
+          <li class="dropdown head-dpdn">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-bell"></i><span class="badge blue">3</span></a>
+            <ul class="dropdown-menu">
+              <li>
+                <div class="notification_header">
+                  <h3>You have 3 new notification</h3>
+                </div>
+              </li>
+              <li><a href="#">
+                <div class="user_img"><img src="${pageContext.request.contextPath}/resources/static/img/p5.png" alt=""></div>
+                 <div class="notification_desc">
+                <p>Lorem ipsum dolor</p>
+                <p><span>1 hour ago</span></p>
+                </div>
+                <div class="clearfix"></div>
+               </a></li>
+               <li class="odd"><a href="#">
+                <div class="user_img"><img src="${pageContext.request.contextPath}/resources/static/img/p6.png" alt=""></div>
+                 <div class="notification_desc">
+                <p>Lorem ipsum dolor</p>
+                <p><span>1 hour ago</span></p>
+                </div>
+                 <div class="clearfix"></div>
+               </a></li>
+               <li><a href="#">
+                <div class="user_img"><img src="${pageContext.request.contextPath}/resources/static/img/p7.png" alt=""></div>
+                 <div class="notification_desc">
+                <p>Lorem ipsum dolor</p>
+                <p><span>1 hour ago</span></p>
+                </div>
+                 <div class="clearfix"></div>
+               </a></li>
+               <li>
+                <div class="notification_bottom">
+                  <a href="#">See all notifications</a>
+                </div>
+              </li>
+            </ul>
+          </li>
+          <li class="dropdown head-dpdn">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-tasks"></i><span class="badge blue1">9</span></a>
+            <ul class="dropdown-menu">
+              <li>
+                <div class="notification_header">
+                  <h3>You have 8 pending task</h3>
+                </div>
+              </li>
+              <li><a href="#">
+                <div class="task-info">
+                  <span class="task-desc">Database update</span><span class="percentage">40%</span>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="progress progress-striped active">
+                  <div class="bar yellow" style="width:40%;"></div>
+                </div>
+              </a></li>
+              <li><a href="#">
+                <div class="task-info">
+                  <span class="task-desc">Dashboard done</span><span class="percentage">90%</span>
+                   <div class="clearfix"></div>
+                </div>
+                <div class="progress progress-striped active">
+                   <div class="bar green" style="width:90%;"></div>
+                </div>
+              </a></li>
+              <li><a href="#">
+                <div class="task-info">
+                  <span class="task-desc">Mobile App</span><span class="percentage">33%</span>
+                  <div class="clearfix"></div>
+                </div>
+                 <div class="progress progress-striped active">
+                   <div class="bar red" style="width: 33%;"></div>
+                </div>
+              </a></li>
+              <li><a href="#">
+                <div class="task-info">
+                  <span class="task-desc">Issues fixed</span><span class="percentage">80%</span>
+                   <div class="clearfix"></div>
+                </div>
+                <div class="progress progress-striped active">
+                   <div class="bar  blue" style="width: 80%;"></div>
+                </div>
+              </a></li>
+              <li>
+                <div class="notification_bottom">
+                  <a href="#">See all pending tasks</a>
+                </div>
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <div class="clearfix"> </div>
+      </div> -->
+      <div class="dropdown">
+          <button class="btn btn-default visible-xs" data-toggle="collapse" data-target="#myList">
+            Menu <span class="caret"></span>
+          </button>
+        </div>
+        <div class="navbar-collapse collapse" id="myList">
+          <ul class="nav navbar-nav">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li><a href="#">Separated link</a></li>
+          </ul>
+        </div>
 
-</div> -->
+
+        <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" type="button" id="przykladowaListaPrimary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Kliknij mnie!
+            </button>
+            <div class="dropdown-menu" aria-labelledby="przykladowaListaPrimary">
+              <a class="dropdown-item" href="#">Pierwszy element</a>
+              <a class="dropdown-item" href="#">Drugi element</a>
+              <a class="dropdown-item" href="#">Trzeci element</a>
+            </div>
+          </div>

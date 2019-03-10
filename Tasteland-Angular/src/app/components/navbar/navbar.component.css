@@ -1,4 +1,4 @@
-
+/*
 .logo {
   width:22%;
   box-sizing: border-box;
@@ -14,15 +14,14 @@
     padding: 1em 2em;
     box-shadow: 0 1px 3px rgba(0,0,0,0.15);
     display: block;
-
 }
 .header-right {
     float: right;
-    width: 50%;
+    width: 43%;
 }
 .header-left {
     float: left;
-    width: 45%;
+    width: 43%;
 }
 .logo-name {
     float: left;
@@ -50,9 +49,9 @@ span.logo-clr{
 	color:#fdbb30;
 }
 .page-container.sidebar-collapsed-back #menu span.fa.fa-angle-right{
-	position: absolute;
+	/* position: absolute; */
     top: 0px;
-    right: 20px;
+    /* right: 20px; */
 }
 
 /*--- Progress Bar ----*/
@@ -119,10 +118,11 @@ span.logo-clr{
 li.dropdown.head-dpdn {
     display: inline-block;
     padding: 1em 0;
-	float: left;
 }
 li.dropdown.head-dpdn a.dropdown-toggle {
    margin: 1em 2em;
+
+
 }
 ul.dropdown-menu li {
     margin-left: 0;
@@ -363,10 +363,12 @@ ul.dropdown-menu {
     padding: 0;
     min-width: 230px;
     top:101%;
+
 }
 .dropdown-menu > li > a {
     padding: 3px 15px;
-	font-size: 1em;
+  font-size: 1em;
+
 }
 .profile_details {
     float: right;
@@ -382,7 +384,8 @@ ul.dropdown-menu {
 }
 .profile_details_drop a.dropdown-toggle {
     display:block;
-	padding:0em 3em 0 1em;
+  padding:0em 3em 0 1em;
+
 }
 .profile_img span.prfil-img{
 	float:left;
@@ -409,6 +412,7 @@ ul.dropdown-menu {
     min-width: 190px;
     top: 122%;
     left:0%;
+
 }
 ul.dropdown-menu.drp-mnu li {
     list-style-type: none;

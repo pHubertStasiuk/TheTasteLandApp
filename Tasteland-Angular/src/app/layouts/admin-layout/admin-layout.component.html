@@ -1,10 +1,15 @@
-
-<div class="page-container">
-    <div class="sidebar">
-        <app-sidebar></app-sidebar>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-2 sidenav hidden-xs">
+      <app-sidebar></app-sidebar>
     </div>
-    <div class= "content-wrapper">
+    <div class="col-sm navigation-bar">
+      <div>
         <app-navbar></app-navbar>
+      </div>
+      <div class = "navigation-bar">
         <router-outlet></router-outlet>
+      </div>
     </div>
+  </div>
 </div>

@@ -3,19 +3,15 @@ package com.tasteland.app.Tasteland.repository;
 import com.tasteland.app.Tasteland.model.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.TypedQuery;
 import java.util.Optional;
 
 @Repository
-@NamedQueries(value = {
-        @NamedQuery(name = "getUserByUsername", query = "SELECT u FROM User u where u.userName=:uName"),
-        @NamedQuery(name = "getAllUsers", query = "SELECT u FROM User u")}
-)
+@SuppressWarnings("unchecked")
 public class UserDAOImpl implements UserDAO {
 
 
@@ -23,25 +19,48 @@ public class UserDAOImpl implements UserDAO {
     private SessionFactory sessionFactory;
 
     @Override
+
     public Optional<User> getUser(String username) {
 
         Session session = sessionFactory.getCurrentSession();
-        TypedQuery<User> theQuery = session.createNamedQuery("getUserByUsername", User.class);
-        theQuery.setParameter("uName", username);
+        Query<User> query = session.getNamedQuery("getUserByUsername");
+        query.setParameter("uName", username);
         Optional<User> theUser;
         try {
-            theUser = Optional.of(theQuery.getSingleResult());
+            theUser = Optional.ofNullable(query.getSingleResult());
         } catch (Exception e) {
-            theUser = null;
+            theUser = Optional.empty();
         }
         return theUser;
 
     }
+
     @Override
     public void save(User user) {
+        Session session = sessionFactory.getCurrentSession();
+        session.saveOrUpdate(user);
+    }
+
+    @Override
+    public Optional<User> getUserById(int theId) {
 
         Session session = sessionFactory.getCurrentSession();
-//        Query<User> theQuery = session.createQuery()
+        TypedQuery<User> query = session.getNamedQuery("getUserById");
+        query.setParameter("uId", theId);
+        Optional<User> theUser;
+        try {
+            theUser = Optional.ofNullable(query.getSingleResult());
+        } catch (Exception ex) {
+            theUser = Optional.empty();
+        }
+        return theUser;
+    }
 
+    @Override
+    public void deleteUser(int theId) {
+        Session session = sessionFactory.getCurrentSession();
+        Query theQuery = session.getNamedQuery("deleteUserById");
+        theQuery.setParameter("uId", theId);
+        theQuery.executeUpdate();
     }
 }

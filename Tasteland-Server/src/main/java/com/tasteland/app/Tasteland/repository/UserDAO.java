@@ -8,6 +8,11 @@ import java.util.Optional;
 public interface UserDAO {
 
     Optional<User> getUser(String username);
+
     void save(User user);
+
+    Optional<User> getUserById(int theId);
+
+    void deleteUser(int theId);
 
 }

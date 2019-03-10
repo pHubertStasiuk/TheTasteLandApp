@@ -1,21 +1,19 @@
 package com.tasteland.app.Tasteland.model;
 
+
 import lombok.Data;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "role")
+@Table(name = "food_category")
 @Data
-public class Role {
+public class FoodCategory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-    @Column(name = "name")
-    private String name;
-
-
-
+    @Column(name = "food_category_name")
+    private String foodCategory;
 }

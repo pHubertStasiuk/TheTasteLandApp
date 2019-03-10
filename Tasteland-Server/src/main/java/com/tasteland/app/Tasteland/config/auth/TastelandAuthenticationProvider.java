@@ -9,6 +9,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -29,18 +30,17 @@ public class TastelandAuthenticationProvider implements AuthenticationProvider {
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-
         String username = authentication.getName();
-        String password =  encoder.encode(authentication.getCredentials().toString());
+        String password =  authentication.getCredentials() == null ? "" : authentication.getCredentials().toString();
         Optional<User> user = userService.getUser(username);
-        if(user == null || !user.isPresent()) {
-            throw new BadCredentialsException("Incorrect username!");
+        if(!user.isPresent()) {
+            throw new UsernameNotFoundException("Invalid username!");
         }
-        if(!user.get().getPassword().equalsIgnoreCase(password)) {
+        if(!encoder.matches(password,user.get().getPassword())) {
             throw new BadCredentialsException("Incorrect password!");
         }
         Collection<? extends GrantedAuthority> authorities = new ArrayList<>();
-        return new UsernamePasswordAuthenticationToken(user.get().getUsername(), user.get().getPassword(), authorities);
+        return new UsernamePasswordAuthenticationToken(user.get(), authorities);
     }
 
     @Override

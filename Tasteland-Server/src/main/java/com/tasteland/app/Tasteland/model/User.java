@@ -9,6 +9,12 @@ import java.util.Collection;
 @Entity
 @Data
 @RequiredArgsConstructor
+@NamedQueries({
+        @NamedQuery(name = "getUserByUsername", query = "SELECT u FROM User u WHERE u.username=:uName"),
+        @NamedQuery(name = "getAllUsers", query = "SELECT u FROM User u"),
+        @NamedQuery(name = "getUserById", query = "SELECT u FROM User u WHERE u.id=:uId"),
+        @NamedQuery(name = "deleteUserById", query = "DELETE u FROM User u WHERE u.id=:uId")
+})
 public class User {
 
     @Id
