@@ -51,10 +51,15 @@
   left: 100%;
   top: 20px;
   background-color: #202121;
+  z-index: auto;
 }
 .menu li:hover > ul {
   visibility: visible;
   opacity: 1;
+  width: 110px;
+  z-index: 10;
+  background: #202121;
+
 }
 .menu li li ul {
   right: 100%;
