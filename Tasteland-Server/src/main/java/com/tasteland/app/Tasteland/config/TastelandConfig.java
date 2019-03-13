@@ -2,25 +2,31 @@ package com.tasteland.app.Tasteland.config;
 
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
-import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.*;
 import org.springframework.core.env.Environment;
+import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.orm.jpa.JpaVendorAdapter;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
+import javax.transaction.TransactionManager;
 import java.beans.PropertyVetoException;
 import java.util.Properties;
 
 @Configuration
 @EnableTransactionManagement
 @ComponentScan(basePackages = "com.tasteland.app")
-@PropertySource("classpath:persistence-mysql.properties")
+@PropertySources({
+        @PropertySource("classpath:persistence-mysql.properties"),
+        @PropertySource("classpath:jwt-auth.properties")})
 public class TastelandConfig {
 
     @Autowired
@@ -61,13 +67,14 @@ public class TastelandConfig {
         return dataSource;
 
     }
+
     private int getIntProperty(String propName) {
         String propVal = env.getProperty(propName);
         int intPropVal = Integer.parseInt(propVal);
         return intPropVal;
     }
 
-    private Properties getHibernateProperties() {
+    private Properties getJpaProperties() {
         Properties props = new Properties();
         props.setProperty("hibernate.dialect", env.getProperty("hibernate.dialect"));
         props.setProperty("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
@@ -76,24 +83,26 @@ public class TastelandConfig {
     }
 
     @Bean
-    public LocalSessionFactoryBean sessionFactory() {
-
-        LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
-        sessionFactory.setDataSource(dataSource());
-        sessionFactory.setPackagesToScan(env.getProperty("hibernate.packagesToScan"));
-        sessionFactory.setHibernateProperties(getHibernateProperties());
-
-
-        return sessionFactory;
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
+        JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+        LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
+        factory.setDataSource(dataSource());
+        factory.setPackagesToScan(env.getProperty("hibernate.packagesToScan"));
+        factory.setJpaVendorAdapter(vendorAdapter);
+        factory.setJpaProperties(getJpaProperties());
+        return factory;
     }
+
 
     @Bean
     @Autowired
-    public HibernateTransactionManager transactionManager(SessionFactory sessionFactory) {
-        HibernateTransactionManager txManager = new HibernateTransactionManager();
-        txManager.setSessionFactory(sessionFactory);
-        return txManager;
+    public PlatformTransactionManager transactionManager(EntityManagerFactory entityManagerFactory){
+        JpaTransactionManager jpaTransactionManager = new JpaTransactionManager();
+        jpaTransactionManager.setEntityManagerFactory(entityManagerFactory);
+        return jpaTransactionManager;
     }
-
-
+    @Bean
+    public PersistenceExceptionTranslationPostProcessor exceptionTranslation(){
+        return new PersistenceExceptionTranslationPostProcessor();
+    }
 }
