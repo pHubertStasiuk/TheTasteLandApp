@@ -1,125 +1,111 @@
 package com.tasteland.app.Tasteland.config.auth;
 
-import com.google.common.collect.Lists;
+import com.tasteland.app.Tasteland.service.JwtUserDetailsService;
+import com.tasteland.app.Tasteland.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
-import org.springframework.security.web.csrf.CsrfFilter;
-import org.springframework.security.web.csrf.CsrfTokenRepository;
-import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import javax.annotation.Resource;
 
 
 @Configuration
 @EnableWebSecurity
 @Order(SecurityProperties.BASIC_AUTH_ORDER - 2)
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class TastelandSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
+
     @Autowired
-    private RestAuthenticationEntryPoint authenticationEntryPoint;
+    private JwtAuthenticationEntryPoint unauthorizedHandler;
+
     @Autowired
-    private TastelandAuthenticationProvider authenticationProvider;
+    private JwtUserDetailsService jwtUserDetailsService;
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) {
-        auth.authenticationProvider(authenticationProvider);
+    // Custom JWT based security filter
+    @Autowired
+    private JwtAuthenticationFilter authenticationTokenFilter;
 
-    }
+    @Value("${jwt.header}")
+    private String tokenHeader;
 
-    protected CredentialsAuthenticationFilter authenticationFilter() throws Exception {
-        CredentialsAuthenticationFilter filter = new CredentialsAuthenticationFilter();
-        filter.setAuthenticationManager(authenticationManagerBean());
-        filter.setRequiresAuthenticationRequestMatcher(new
-                AntPathRequestMatcher("/login", "POST"));
-        return filter;
+    @Value("${jwt.route.authentication.path}")
+    private String authenticationPath;
+
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth
+                .userDetailsService(jwtUserDetailsService)
+                .passwordEncoder(passwordEncoderBean());
     }
 
     @Bean
-    public PasswordEncoder encoder() {
+    public PasswordEncoder passwordEncoderBean() {
         return new BCryptPasswordEncoder();
     }
 
+    @Bean
     @Override
-    protected void configure(HttpSecurity http)
-            throws Exception {
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
 
-        http.addFilterBefore(authenticationFilter(),
-                UsernamePasswordAuthenticationFilter.class);
-
-
-        http
+    @Override
+    protected void configure(HttpSecurity httpSecurity) throws Exception {
+        httpSecurity
+                // we don't need CSRF due to our token
+                .csrf().disable()
+                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
+                // don't create session
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
-                .antMatchers("/**")
-                .permitAll()
-                .antMatchers("/",
+                .antMatchers("/authenticate/**").permitAll()
+                .anyRequest().authenticated();
+        httpSecurity
+                .addFilterBefore(authenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
+
+    }
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        // AuthenticationTokenFilter will ignore the below paths
+        web
+                .ignoring()
+                .antMatchers(
+                        HttpMethod.POST,
+                        authenticationPath
+                )
+
+                // allow anonymous resource requests
+                .and()
+                .ignoring()
+                .antMatchers(
+                        HttpMethod.GET,
+                        "/",
+                        "/*.html",
                         "/favicon.ico",
-                        "/**/*.png",
-                        "/**/*.gif",
-                        "/**/*.svg",
-                        "/**/*.jpg",
                         "/**/*.html",
                         "/**/*.css",
-                        "/**/*.js")
-                .permitAll()
-                .anyRequest()
-                .authenticated()
-                .and()
-                .cors()
-                .and()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().csrf().disable();
-//                .and().addFilterAfter(new XSRFTokenFilter(), CsrfFilter.class)
-//                .csrf()
-//                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-//                .and().authenticationProvider(authenticationProvider);
+                        "/**/*.js"
+                );
 
-
-        http.exceptionHandling().authenticationEntryPoint(authenticationEntryPoint);
 
     }
-
-    private CsrfTokenRepository csrfTokenRepository() {
-        HttpSessionCsrfTokenRepository repository = new HttpSessionCsrfTokenRepository();
-        repository.setHeaderName("X-XSRF-TOKEN");
-        return repository;
-    }
-
-    @Bean
-    @Override
-    protected AuthenticationManager authenticationManager() throws Exception {
-        return super.authenticationManager();
-    }
-
-    @Bean
-    public CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Lists.newArrayList("http://localhost:4200"));
-        configuration.setAllowedMethods(Lists.newArrayList("GET", "POST"));
-        configuration.setAllowCredentials(true);
-        configuration.setAllowedHeaders(Lists.newArrayList("X-XSRF-TOKEN", "XSRF-TOKEN", "content-type"));
-        configuration.setMaxAge(4200l);
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
-        return source;
-    }
-
 }
