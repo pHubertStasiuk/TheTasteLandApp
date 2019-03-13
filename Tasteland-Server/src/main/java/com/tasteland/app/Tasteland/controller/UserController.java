@@ -1,7 +1,5 @@
 package com.tasteland.app.Tasteland.controller;
 
-
-import com.tasteland.app.Tasteland.config.auth.TastelandAuthenticationProvider;
 import com.tasteland.app.Tasteland.model.ExecutionStatus;
 import com.tasteland.app.Tasteland.model.User;
 import com.tasteland.app.Tasteland.model.UserValidator;
@@ -10,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -30,8 +29,9 @@ import java.util.logging.Logger;
 @RequestMapping("/user")
 public class UserController {
 
+
     @Autowired
-    private TastelandAuthenticationProvider authenticationProvider;
+    private AuthenticationManager authenticationManager;
     @Autowired
     private UserService userService;
     private Logger logger = Logger.getLogger(getClass().getName());
@@ -49,7 +49,7 @@ public class UserController {
         UsernamePasswordAuthenticationToken token =
                 new UsernamePasswordAuthenticationToken(reqUser.getUsername(), reqUser.getPassword());
         try {
-            authentication = authenticationProvider.authenticate(token);
+            authentication = authenticationManager.authenticate(token);
             SecurityContextHolder.getContext().setAuthentication(authentication);
             User user = new User();
             user.setUsername(authentication.getPrincipal().toString());
