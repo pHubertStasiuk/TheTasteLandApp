@@ -1,13 +1,14 @@
 package com.tasteland.app.Tasteland.model;
 
 import lombok.Data;
+import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "role")
 @Data
-public class Role {
+public class Role implements GrantedAuthority {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,5 +18,8 @@ public class Role {
     private String name;
 
 
-
+    @Override
+    public String getAuthority() {
+        return null;
+    }
 }
