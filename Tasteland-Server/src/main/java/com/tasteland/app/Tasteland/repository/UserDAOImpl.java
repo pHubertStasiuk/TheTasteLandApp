@@ -1,12 +1,11 @@
 package com.tasteland.app.Tasteland.repository;
 
 import com.tasteland.app.Tasteland.model.User;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.TypedQuery;
 import java.util.Optional;
 
@@ -16,14 +15,12 @@ public class UserDAOImpl implements UserDAO {
 
 
     @Autowired
-    private SessionFactory sessionFactory;
+    private EntityManagerFactory entityManagerFactory;
 
     @Override
-
     public Optional<User> getUser(String username) {
-
-        Session session = sessionFactory.getCurrentSession();
-        Query<User> query = session.getNamedQuery("getUserByUsername");
+        EntityManager manager = entityManagerFactory.createEntityManager();
+        TypedQuery<User> query = manager.createNamedQuery("getUserByUsername", User.class);
         query.setParameter("uName", username);
         Optional<User> theUser;
         try {
@@ -37,15 +34,15 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public void save(User user) {
-        Session session = sessionFactory.getCurrentSession();
-        session.saveOrUpdate(user);
+        EntityManager manager = entityManagerFactory.createEntityManager();
+        manager.merge(user);
     }
 
     @Override
     public Optional<User> getUserById(int theId) {
 
-        Session session = sessionFactory.getCurrentSession();
-        TypedQuery<User> query = session.getNamedQuery("getUserById");
+        EntityManager manager = entityManagerFactory.createEntityManager();
+        TypedQuery<User> query = manager.createNamedQuery("getUserById", User.class);
         query.setParameter("uId", theId);
         Optional<User> theUser;
         try {
@@ -58,9 +55,9 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public void deleteUser(int theId) {
-        Session session = sessionFactory.getCurrentSession();
-        Query theQuery = session.getNamedQuery("deleteUserById");
-        theQuery.setParameter("uId", theId);
-        theQuery.executeUpdate();
+        EntityManager manager = entityManagerFactory.createEntityManager();
+        TypedQuery<User> query = manager.createNamedQuery("deleteUserById", User.class);
+        query.setParameter("uId", theId);
+        query.executeUpdate();
     }
 }
