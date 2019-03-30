@@ -10,6 +10,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { MatRippleModule } from '@angular/material/core';
 import {MatInputModule, MatCheckboxModule} from '@angular/material';
+import {MatTooltipModule} from '@angular/material/tooltip';
+
 
 const modules = [
   MatButtonModule,
@@ -23,7 +25,8 @@ const modules = [
   MatChipsModule,
   MatFormFieldModule,
   MatInputModule,
-  MatProgressSpinnerModule
+  MatProgressSpinnerModule,
+  MatTooltipModule
 ];
 
 

@@ -1,8 +1,58 @@
-.sidebar{
+.panel-wrapper{
   background-color: white;
-  height: 75vh;
-  margin-top: 45%;
-  border: 1px solid;
+  min-height: 70vh;
+  margin-top: 20vh;
   min-width: 100%;
   text-align: center;
 }
+
+.avatar {
+margin-top: -40%;
+}
+
+.user-background {
+  min-width:  100%;
+  min-height: 15vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: url("http://wallpapere.org/wp-content/uploads/2012/02/black-and-white-city-night.png");
+}
+
+.user-description {
+  margin-top: 20px;
+  margin-bottom: 25px;
+  min-height: 32px;
+  color: #3C4858;
+  font-weight: 700;
+  font-size: 20px;
+  font-family: "Roboto Slab","Times New Roman",serif;
+}
+
+.user-role {
+margin-top: -20px;
+font-weight: 500;
+font-size: 15px;
+}
+
+.btn-panel > a {
+  margin-top: -40px;
+  font-size: 30px;
+  color: #283e4a;;
+}
+
+.btn-panel > a:hover {
+  color: #c2d0c2;
+}
+
+.gallery-header {
+  color: #3C4858;
+  font-weight: 700;
+  font-size: 19px;
+  font-family: "Roboto Slab","Times New Roman",serif;
+}
+.gallery {
+  margin: auto;
+  margin-bottom: 15px;
+}
+

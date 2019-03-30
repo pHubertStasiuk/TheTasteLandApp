@@ -1,5 +1,83 @@
+<!-- < class="sidebar">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 ml-auto mr-auto">
+            <div class="">
+              <div class="">
+                <img
+                  src="https://www.biography.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cg_face%2Cq_auto:good%2Cw_300/MTU0NjQzOTk4OTQ4OTkyMzQy/ansel-elgort-poses-for-a-portrait-during-the-baby-driver-premiere-2017-sxsw-conference-and-festivals-on-march-11-2017-in-austin-texas-photo-by-matt-winkelmeyer_getty-imagesfor-sxsw-square.jpg"
+                  alt="user-avatar" class="img-raised rounded-circle img-fluid">
+              </div>
+              <div class="">
+                <h3 class="">Christian Louboutin</h3>
+                <h6>Designer</h6>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="text-center">
+          <p>An artist of considerable range, Chet Faker — the name taken by Melbourne-raised, Brooklyn-based Nick
+            Murphy — writes, performs and records all of his own music, giving it a warm, intimate feel with a solid
+            groove structure. </p>
+        </div>
+      </div> -->
 
-  <div class="sidebar">
-    Panel
+
+<div class="container panel-wrapper">
+  <div class="row user-background">
+    <div class="col-md-12">
+    </div>
   </div>
-
+  <div class="row">
+    <div class="col-md-6 ml-auto mr-auto">
+      <div class="avatar">
+        <img [src]="getUserAvatar()" alt="user-avatar" class="img-raised rounded-circle img-fluid">
+      </div>
+    </div>
+  </div>
+  <div class="clearfix"></div>
+  <div class="row">
+    <div class="col-md-12 user-description">
+      <p class="user-name"> {{getUserFirstName()}}</p>
+      <p class="user-role">{{getUserRole()}}</p>
+      <hr>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 btn-panel">
+      <a href="#" class="btn btn-just-icon" matTooltip="Account"><i class="fa fa-user-circle"></i></a>
+      <a href="#" class="btn btn-just-icon" matTooltip="Settings"><i class="fa fa-cog"></i></a>
+      <a href="#" class="btn btn-just-icon" matTooltip="Log out"><i class="fa fa-sign-out"></i></a>
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-md-12 text-center gallery-header">
+      <p>Last added recipes:</p>
+    </div>
+    <div class="row gallery">
+      <div class="col-md-4">
+        <div class="card">
+          <img class="card-img-top"
+            src="https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?cs=srgb&dl=blur-breakfast-close-up-376464.jpg&fm=jpg"
+            alt="Card image cap">
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card">
+          <img class="card-img-top"
+            src="https://images.pexels.com/photos/46239/salmon-dish-food-meal-46239.jpeg?cs=srgb&dl=close-up-cooking-dinner-46239.jpg&fm=jpg"
+            alt="Card image cap">
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card">
+          <img class="card-img-top"
+            src="https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?cs=srgb&dl=carrots-cucumber-delicious-1640777.jpg&fm=jpg"
+            alt="Card image cap">
+        </div>
+      </div>
+    </div>
+  </div>
+  <button mat-button gallery-expand>Show all...</button>
+</div>
