@@ -1,21 +1,7 @@
-.sidenav {
-    min-height: 100vh;
-    padding-left: 15px;
-    margin-right: -15px;
-    margin-left: -15px;
-    max-width: 100vmin;
-  }
-  /* On small screens, set height to 'auto' for the grid */
-  @media screen and (max-width: 767px) {
-    .row.content {height: auto;}
-  }
-
-  .navigation-bar {
-    position:relative;
-  }
-
-.container-fluid{
-  position:absolute;
-top:0;
-
+.navigation {
+  display: block !important;
+  z-index: 100;
+  position: fixed;
+  top: 0;
+  width: 100%;
 }

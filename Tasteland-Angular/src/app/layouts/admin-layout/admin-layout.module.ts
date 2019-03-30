@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { DashboardComponent } from '../../dashboard/dashboard.component';
+import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
 import { AdminLayoutRoutes } from './admin-layout.routing';
+import { DashboardComponent } from 'src/app/components/content/dashboard/dashboard.component';
 
 @NgModule({
   imports: [

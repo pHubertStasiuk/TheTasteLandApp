@@ -30,6 +30,6 @@ import { UserProfileComponent } from './navbar/user-profile/user-profile.compone
     FooterComponent,
     NavbarComponent,
     SidebarComponent
-  ]
+    ]
 })
 export class ComponentsModule { }

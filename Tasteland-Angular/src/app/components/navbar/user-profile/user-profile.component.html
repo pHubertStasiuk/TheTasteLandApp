@@ -1,24 +1,37 @@
 <div class="profile_details">
-    <ul>
-      <li class="dropdown profile_details_drop">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-          <div class="profile_img">
-            <span class="prfil-img"><img src="${pageContext.request.contextPath}/resources/static/img/p1.png" alt="">
+  <ul>
+    <li class="dropdown">
+        <span ngbDropdown>
+          <button type="button" class="btn" ngbDropdownToggle>
+            <span>
+
+              <span class="profil-img"><img class="profil-img" src="/assets/img/profile_pic.PNG" alt="">
+              </span>
+              <div class="user-name">
+                <p>Hubert Stasiuk</p>
+                <span>Administrator</span>
+
+                <div ngbDropdownMenu>
+
+
+                    <div class="notification_desc">
+
+                      <p>Settings</p>
+
+                    </div>
+                    <div class="notification_desc">
+                        <p>Logout</p>
+                    </div>
+                    <div class="notification_desc">
+                        <p>Edit Profile</p>
+                    </div>
+                  </div>
+              </div>
             </span>
-            <div class="user-name">
-              <p>Hubert Stasiuk</p>
-              <span>Administrator</span>
-            </div>
-            <i class="fa fa-angle-down lnr"></i>
-            <i class="fa fa-angle-up lnr"></i>
-            <div class="clearfix"></div>
-          </div>
-        </a>
-        <!-- <ul class="dropdown-menu drp-mnu">
-          <li> <a href="/register/showRegistrationForm"><i class="fa fa-cog"></i> Settings</a> </li>
-            <li> <a href="/showMyLoginPage"><i class="fa fa-user"></i> Profile</a> </li>
-          <li> <a href="/logout"><i class="fa fa-sign-out"></i> Logout</a> </li>
-        </ul> -->
-      </li>
-    </ul>
-  </div>
+          </button>
+
+        </span>
+
+</li>
+</ul>
+</div>

@@ -1,15 +1,18 @@
 <div class="container-fluid">
-  <div class="row">
-    <div class="col-sm-2 sidenav hidden-xs">
-      <app-sidebar></app-sidebar>
+  <div class="row navigation">
+    <div class="col-xs-12">
+      <app-navbar></app-navbar>
     </div>
-    <div class="col-sm navigation-bar">
-      <div>
-        <app-navbar></app-navbar>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 col-sm-4 col-md-3">
+      <div class="col-md-10 offset-md-2">
+        <app-sidebar></app-sidebar>
       </div>
-      <div class = "navigation-bar">
-        <router-outlet></router-outlet>
-      </div>
+    </div>
+    <div class="col-xs-12 col-sm-8 col-md-9">
+      <!-- <app-dashboard></app-dashboard> -->
     </div>
   </div>
 </div>
+<app-footer></app-footer>

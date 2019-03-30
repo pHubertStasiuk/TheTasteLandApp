@@ -1,0 +1,16 @@
+.col2{
+  background-color: green;
+  min-height: 200px;
+ margin-top: 20px;
+  min-width: 46%;
+  margin-right: 20px;
+  margin-left: 20px;
+}
+
+.col3{
+  background-color: red;
+  min-height: 280px;
+  margin-top: 20px;
+  min-width: 95%;
+  margin-left: 20px;
+}

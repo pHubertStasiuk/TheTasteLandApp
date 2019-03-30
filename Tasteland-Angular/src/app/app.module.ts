@@ -9,12 +9,16 @@ import { RouterModule } from '@angular/router';
 import { ComponentsModule } from './components/components.module';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { FormsModule } from '@angular/forms';
+import { ScrollToTopDirective } from './directives/scroll-to-top.directive';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AdminLayoutComponent
-  ],
+    AdminLayoutComponent,
+    ScrollToTopDirective,
+    LoginComponent
+    ],
   imports: [
     BrowserAnimationsModule,
     FormsModule,
@@ -23,7 +27,8 @@ import { FormsModule } from '@angular/forms';
     MaterialModule,
     HttpClientModule,
     RouterModule,
-    ComponentsModule
+    ComponentsModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]

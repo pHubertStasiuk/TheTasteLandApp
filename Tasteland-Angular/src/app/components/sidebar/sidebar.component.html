@@ -1,15 +1,5 @@
-<div class="sidebar-menu">
-  <div class="menu">
-    <ul id="menu">
-      <li *ngFor="let menuItem of menuItems">
-        <a [href]=menuItem.path><i [class]="menuItem.icon"></i>
-          <span>{{menuItem.title}}</span>
-          <span *ngIf="menuItem.child?.length > 0" class="fa fa-angle-right" style="float: right"></span></a>
-        <ul *ngIf="menuItem.child?.length > 0">
-          <li *ngFor="let menuChildItem of menuItem.child">
-           <a [href]=menuChildItem.path> <span>{{menuChildItem.title}}</span></a>
-          </li>
-        </ul>
-      </li>
-    </ul>
+
+  <div class="sidebar">
+    Panel
   </div>
+
