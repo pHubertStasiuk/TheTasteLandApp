@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 import java.util.Optional;
 
@@ -35,7 +36,11 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public void save(User user) {
         EntityManager manager = entityManagerFactory.createEntityManager();
+        EntityTransaction transaction = manager.getTransaction();
+        transaction.begin();
         manager.merge(user);
+        transaction.commit();
+
     }
 
     @Override
