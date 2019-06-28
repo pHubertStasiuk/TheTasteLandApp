@@ -9,8 +9,13 @@ import io.jsonwebtoken.impl.DefaultClock;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
+import sun.security.util.AbstractAlgorithmConstraints;
+import sun.security.util.AlgorithmDecomposer;
 
+import javax.security.auth.kerberos.KerberosKey;
+import javax.security.auth.kerberos.KerberosPrincipal;
 import java.io.Serializable;
+import java.security.AlgorithmConstraints;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -38,7 +43,6 @@ public class JwtUtils implements Serializable {
     public Date getTokenExpirationDate(String token) {
         return getClaimFromToken(token, claims -> claims.getExpiration());
     }
-
 
     public <T> T getClaimFromToken(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = getAllClaimsFromToken(token);
@@ -84,6 +88,12 @@ public class JwtUtils implements Serializable {
     public Boolean canTokenBeRefreshed(String token, Date lastPasswordReset) {
         final Date created = getIssuedDateFromToken(token);
         return !isCreatedBeforeLastPasswordReset(created, lastPasswordReset) && !isTokenExpired(token);
+    }
+
+    public Boolean tralala(String token) {
+        String issuer = this.getClaimFromToken(token, token2 -> token2.getSubject());
+        System.out.println(issuer.getBytes());
+        return true;
     }
 
     public String refreshToken(String token) {

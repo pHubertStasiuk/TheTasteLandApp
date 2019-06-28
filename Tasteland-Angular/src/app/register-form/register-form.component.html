@@ -1,0 +1,135 @@
+<div class="container wrapper fadeInDown">
+  <div id="formContent">
+    <div class="fadeIn first">
+      <img class="logo" src="assets/img/logo-1.png" id="icon" alt="tasteland-logo" />
+    </div>
+
+    <div class="container custom-form">
+      <form (ngSubmit)="register()">
+        <mat-horizontal-stepper linear #stepper>
+
+          <!-- authentication details -->
+          <mat-step [stepControl]="authDetailsFormGroup">
+            <form [formGroup]="authDetailsFormGroup">
+              <ng-template matStepLabel>Account Details</ng-template>
+              <div class="row">
+                <div class="col-md-12">
+                  <div>
+                    <mat-form-field>
+                      <input matInput placeholder="Login" formControlName="usernameControl" required>
+                    </mat-form-field>
+                  </div>
+                  <div>
+                    <mat-form-field>
+                      <input type="password" matInput placeholder="Password" formControlName="passwordControl" required>
+                    </mat-form-field>
+                  </div>
+                  <div>
+                    <mat-form-field>
+                      <input type="password" matInput placeholder="Confirm Password"
+                        formControlName="matchingPasswordControl" required>
+                    </mat-form-field>
+                  </div>
+                  <button type="button" class="btn btn-outline-primary" routerLink="/login">Sign in</button>
+                  <button type="button" class="btn btn-outline-primary" matStepperNext>Next</button>
+                </div>
+              </div>
+
+            </form>
+          </mat-step>
+
+
+          <!-- basic user details -->
+          <mat-step [stepControl]="basicUserInfoFormGroup">
+            <form [formGroup]="basicUserInfoFormGroup">
+              <ng-template matStepLabel>Basic Informations</ng-template>
+              <div class="row">
+                <div class="col-md-3 offset-md-3">
+
+                  <mat-form-field>
+                    <input matInput placeholder="First Name" formControlName="firstnameControl">
+                  </mat-form-field> <br>
+                 <mat-form-field> 
+                  <input matInput placeholder="Email" formControlName="emailControl">
+                    </mat-form-field><br>
+                  <mat-form-field>
+                    <mat-label>Gender</mat-label>
+                    <mat-select formControlName="genderControl">
+                      <mat-option value="option1">Male</mat-option>
+                      <mat-option value="option3">Female</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-3">
+
+                    <mat-form-field>
+                        <input matInput placeholder="Last Name" formControlName="lastnameControl">
+                      </mat-form-field><br>
+
+
+
+                  <mat-form-field>
+                    <input matInput placeholder="Country" formControlName="countryControl">
+                  </mat-form-field> <br>
+
+
+                  <mat-form-field>
+                      <input formControlName="dateOfBirthControl" matInput [matDatepicker]="picker" placeholder="Date of birth">
+                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                      <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+
+                </div>
+              </div>
+
+              <button type="button" class="btn btn-outline-primary" matStepperPrevious>Back</button>
+              <button type="button" class="btn btn-outline-primary" matStepperNext>Next</button>
+              <br>
+              <div *ngIf="basicUserInfoFormGroup.invalid">
+                  <i [ngClass]="'error'" *ngFor="let error of findInvalidControls()">
+                      <i class="fa fa-exclamation-circle"></i>  {{error}} <br>
+                  </i>
+          </div>
+            </form>
+          </mat-step>
+
+
+          <!-- profile picture details -->
+          <mat-step [stepControl]="profilePictureFormGroup">
+            <form [formGroup]="profilePictureFormGroup">
+              <ng-template matStepLabel> Profile Picture</ng-template>
+              <mat-form-field>
+                <input matInput placeholder="Picture" formControlName="pictureControl" required>
+              </mat-form-field> <br>
+
+              <input
+              style="display: none"
+              type="file" (change)="onFileChanged($event)"
+              #fileInput>
+            <button (click)="fileInput.click()">Select File</button>
+            <button (click)="onUpload()">Upload!</button>
+
+
+
+              <div>
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-button matStepperNext>Next</button>
+              </div>
+            </form>
+          </mat-step>
+
+
+          <mat-step>
+            <ng-template matStepLabel>Register!</ng-template>
+            You are now done.
+            <div>
+              <button mat-button matStepperPrevious>Back</button>
+              <button mat-button (click)="stepper.reset()">Reset</button>
+              <button mat-button type="submit">Submit</button>
+            </div>
+          </mat-step>
+        </mat-horizontal-stepper>
+      </form>
+    </div>
+  </div>
+</div>

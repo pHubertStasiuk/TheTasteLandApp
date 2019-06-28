@@ -14,10 +14,12 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
-import javax.transaction.TransactionManager;
 import java.beans.PropertyVetoException;
 import java.util.Properties;
 
@@ -27,7 +29,7 @@ import java.util.Properties;
 @PropertySources({
         @PropertySource("classpath:persistence-mysql.properties"),
         @PropertySource("classpath:jwt-auth.properties")})
-public class TastelandConfig {
+public class TastelandConfig implements WebMvcConfigurer {
 
     @Autowired
     private Environment env;
@@ -35,8 +37,6 @@ public class TastelandConfig {
     @Bean
     public DataSource dataSource() {
         ComboPooledDataSource dataSource = new ComboPooledDataSource();
-
-        // set the jdbc driver
         try {
             dataSource.setDriverClass(env.getProperty("jdbc.driver"));
         } catch (PropertyVetoException exception) {
@@ -104,5 +104,12 @@ public class TastelandConfig {
     @Bean
     public PersistenceExceptionTranslationPostProcessor exceptionTranslation(){
         return new PersistenceExceptionTranslationPostProcessor();
+    }
+
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+                .allowedOrigins("http://localhost:4200")
+                .allowCredentials(true).maxAge(3600);
     }
 }

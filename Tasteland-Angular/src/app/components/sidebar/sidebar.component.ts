@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/model/User';
 import { AuthService } from 'src/app/authentication/auth.service';
+import { TokenStorage } from 'src/app/model/token.storage';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
@@ -10,7 +12,8 @@ import { AuthService } from 'src/app/authentication/auth.service';
 export class SidebarComponent implements OnInit {
 
   private user: User;
-  constructor(private userService: AuthService) { }
+
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
 
@@ -37,5 +40,9 @@ export class SidebarComponent implements OnInit {
 
   getUserRole(): string {
     return this.user.password;
+  }
+
+  signOut() {
+    this.authService.signOut();
   }
 }

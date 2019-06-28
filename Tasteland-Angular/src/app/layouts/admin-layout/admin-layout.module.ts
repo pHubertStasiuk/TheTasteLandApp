@@ -15,7 +15,8 @@ import { DashboardComponent } from 'src/app/components/content/dashboard/dashboa
   ],
   declarations: [
     DashboardComponent
-  ]
+  ],
+  
 })
 
 export class AdminLayoutModule {}

@@ -78,17 +78,18 @@ public class UserController {
         String userName = user.getUserName();
         logger.info("Processing registration form for: " + userName);
         if (theBindingResult.hasErrors()) {
-            return new ResponseEntity<>(new ExecutionStatus("USER_REGISTRATION_FAILED", "User registered successful!"), HttpStatus.EXPECTATION_FAILED);
+            return new ResponseEntity<>(new ExecutionStatus("USER_REGISTRATION_FAILED", "User registered Unsuccessful!"), HttpStatus.EXPECTATION_FAILED);
         }
-        Optional<User> existing = userService.getUser(userName);
-        if (existing != null){
+        User existingUser = userService.getUserByUsername(userName);
+        if (existingUser != null){
             logger.warning("User name already exists.");
             return new ResponseEntity<>(new ExecutionStatus("USER_REGISTRATION_FAILED", "User name already exists"),HttpStatus.EXPECTATION_FAILED);
         }
-        // create user account
         userService.save(user);
+        user.setPassword(null);
+        user.setMatchingPassword(null);
         logger.info("Successfully created user: " + userName);
 
-        return new ResponseEntity<>(new ExecutionStatus("USER_REGISTRATION_SUCCESS", "User registered successful!"),HttpStatus.CREATED);
+        return new ResponseEntity<>(new ExecutionStatus("USER_REGISTRATION_SUCCESS", "User registered successful!", user),HttpStatus.CREATED);
     }
 }

@@ -8,8 +8,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 public class JwtUserDetailsService implements UserDetailsService {
 
@@ -18,12 +16,15 @@ public class JwtUserDetailsService implements UserDetailsService {
 
         @Override
         public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-            Optional<User> user = userService.getUser(username);
+           User user = userService.getUserByUsername(username);
 
-            if(!user.isPresent()) {
+            if(user == null) {
                 throw new UsernameNotFoundException(String.format("Invalid username '%s'.", username));
             } else {
-                return JwtUserFactory.create(user.get());
+                return JwtUserFactory.create(user);
             }
+
+            Object o = new String();
+            ((String) o).replace()
     }
 }

@@ -30,7 +30,7 @@ import javax.annotation.Resource;
 @EnableWebSecurity
 @Order(SecurityProperties.BASIC_AUTH_ORDER - 2)
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class TastelandSecurityConfig extends WebSecurityConfigurerAdapter {
+public class    TastelandSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
 
@@ -68,16 +68,18 @@ public class TastelandSecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
+
+
+
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 // we don't need CSRF due to our token
                 .csrf().disable()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
-                // don't create session
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
-                .antMatchers("/authenticate/**").permitAll()
+                .antMatchers("/authenticate/**", "/user/register").permitAll()
                 .anyRequest().authenticated();
         httpSecurity
                 .addFilterBefore(authenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
@@ -105,7 +107,5 @@ public class TastelandSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/**/*.css",
                         "/**/*.js"
                 );
-
-
     }
 }

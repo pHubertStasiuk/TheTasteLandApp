@@ -8,8 +8,8 @@ import java.util.Optional;
 
 public interface UserService  {
 
-    Optional<User> getUser(String username);
+    User getUserByUsername(String username);
     void save(UserValidator user);
-    Optional<User> getUserById(int theId);
-    void deleteCustomer(int theId);
+    User getUserById(Long theId);
+    void deleteUser(Long theId);
 }

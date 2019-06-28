@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { TokenStorage } from '../model/token.storage';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment.prod';
+
 export class AuthInterceptor implements HttpInterceptor {
 
   constructor(private tokenStorage: TokenStorage, private router: Router) { }
@@ -17,6 +18,7 @@ export class AuthInterceptor implements HttpInterceptor {
     }
     return next.handle(authRequest).do(
       (error: any) => {
+        console.log('status: ' + error.status);
         if (error instanceof HttpErrorResponse && error.status === 401) {
           this.router.navigate(['login']);
         }

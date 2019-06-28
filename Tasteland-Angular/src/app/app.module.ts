@@ -8,29 +8,35 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { ComponentsModule } from './components/components.module';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ScrollToTopDirective } from './directives/scroll-to-top.directive';
 import { LoginComponent } from './login/login.component';
+import { TokenStorage } from './model/token.storage';
+import { RegisterFormComponent } from './register-form/register-form.component';
+import { MAT_DATE_LOCALE } from '@angular/material';
 
 @NgModule({
   declarations: [
     AppComponent,
     AdminLayoutComponent,
     ScrollToTopDirective,
-    LoginComponent
+    LoginComponent,
+    RegisterFormComponent
     ],
   imports: [
     BrowserAnimationsModule,
     FormsModule,
+    ReactiveFormsModule,
     BrowserModule,
     AppRoutingModule,
     MaterialModule,
     HttpClientModule,
     RouterModule,
-    ComponentsModule,
+    ComponentsModule
 
   ],
-  providers: [],
+  providers: [TokenStorage,
+    {provide: MAT_DATE_LOCALE, useValue: 'en-GB'}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

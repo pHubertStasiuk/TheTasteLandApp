@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   serverUrl: 'http://localhost:8080',
-  authHeader: 'Authorization'
+  authHeader: 'Authorization',
+  TOKEN_KEY: 'AuthToken'
 };
 
 /*

@@ -1,24 +1,21 @@
 import { Injectable } from '@angular/core';
-
-
-const TOKEN_KEY = 'AuthToken';
+import { environment } from 'src/environments/environment.prod';
 
 @Injectable()
 export class TokenStorage {
 
-  constructor() { }
-
-  signOut() {
-    window.sessionStorage.removeItem(TOKEN_KEY);
-    window.sessionStorage.clear();
-  }
+  constructor() {}
 
   public saveToken(token: string) {
-    window.sessionStorage.removeItem(TOKEN_KEY);
-    window.sessionStorage.setItem(TOKEN_KEY,  token);
+    window.sessionStorage.removeItem(environment.TOKEN_KEY);
+    window.sessionStorage.setItem(environment.TOKEN_KEY,  token);
   }
 
   public getToken(): string {
-    return sessionStorage.getItem(TOKEN_KEY);
+    return window.sessionStorage.getItem(environment.TOKEN_KEY);
+  }
+
+  public isValid(): boolean {
+    return this.getToken() !== null;
   }
 }

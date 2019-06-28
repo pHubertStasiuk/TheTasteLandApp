@@ -60,11 +60,6 @@ public class AuthenticationRestController {
         }
     }
 
-    @ExceptionHandler({AuthenticationException.class})
-    public ResponseEntity<String> handleAuthenticationException(AuthenticationException e) {
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
-    }
-
     private void authenticate(String username, String password) {
         Objects.requireNonNull(username);
         Objects.requireNonNull(password);
